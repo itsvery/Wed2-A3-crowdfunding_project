@@ -29,10 +29,10 @@ angular.module('crowdfundingApp')
       }
 
       const donation = {
-        date: new Date().toISOString(),
-        amount: $scope.amount,
-        giver: $scope.giver,
-        fundraiser_id: fundraiserId
+        DATE: new Date().toISOString(),
+        AMOUNT: $scope.amount,
+        GIVER: $scope.giver,
+        FUNDRAISER_ID: fundraiserId
       };
 
       FundraiserService.addDonation(donation).then(function(response) {
@@ -46,9 +46,9 @@ angular.module('crowdfundingApp')
   .controller('SearchController', ['$scope', 'FundraiserService', function($scope, FundraiserService) {
     $scope.searchFundraisers = function() {
       const query = {
-        organizer: $scope.organizer,
-        city: $scope.city,
-        category: $scope.category
+        ORGANIZER: $scope.organizer,
+        CITY: $scope.city,
+        CATEGORY: $scope.category
       };
 
       FundraiserService.searchFundraisers(query).then(function(response) {
