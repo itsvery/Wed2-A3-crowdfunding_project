@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '123456',
+  password: '1128',
   database: 'crowdfunding_db'
 });
 
