@@ -21,6 +21,21 @@ document.addEventListener('DOMContentLoaded', function() {
     loadSearchPage();
   }
 
+  fetch('http://localhost:3000/fundraisers')
+  .then(response => {
+    console.log('Response:', response);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Data:', data);
+    // 处理数据
+  })
+  .catch(error => console.error('Error fetching fundraisers:', error));
+
+
   function loadHomePage() {
     fetch('http://localhost:3000/fundraisers')
       .then(response => response.json())
