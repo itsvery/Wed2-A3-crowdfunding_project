@@ -143,7 +143,24 @@ app.post('/donations', (req, res) => {
   `;
   connection.query(query, [date, amount, giver, fundraiser_id], (err, results) => {
     if (err) {
-      console.error('Insertion failed:' + err.stack);
+      console.error('Insertion failed: ' + err.stack);
+      res.status(500).send('server error');
+      return;
+    }
+    res.status(201).send('Donation record added successfully');
+  });
+});
+
+// Add a new fundraiser(添加新的筹款活动)
+app.post('/fundraisers', (req, res) => {
+  const { organizer, caption, target_funding, current_funding, city, active, category_id } = req.body;
+  const query = `
+    INSERT INTO FUNDRAISER (ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `;
+  connection.query(query, [organizer, caption, target_funding, current_funding, city, active, category_id], (err, results) => {
+    if (err) {
+      console.error('Insertion failed: ' + err.stack);
       res.status(500).send('server error');
       return;
     }
