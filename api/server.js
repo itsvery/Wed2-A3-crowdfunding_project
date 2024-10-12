@@ -2,10 +2,14 @@ const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cors = require('cors'); // 引入cors中间件
 
 
 const app = express();
 const port = 3000;
+
+// 使用cors中间件
+app.use(cors());
 
 // Parsing request bodies with the body-parser middleware
 app.use(bodyParser.json());
