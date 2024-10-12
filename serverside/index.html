@@ -1,7 +1,42 @@
 <!DOCTYPE html>
 <html ng-app="adminApp">
 <head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script src="app.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body ng-controller="AdminController">
 
+  <div class="container">
+    <h1>Admin Dashboard</h1>
+
+    <!-- Fundraiser List -->
+    <h2>Fundraisers</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Caption</th>
+          <th>Organizer</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="fundraiser in fundraisers">
+          <td>{{fundraiser.FUNDRAISER_ID}}</td>
+          <td>{{fundraiser.CAPTION}}</td>
+          <td>{{fundraiser.ORGANIZER}}</td>
+          <td>
+            <button class="btn btn-warning" ng-click="editFundraiser(fundraiser)">Edit</button>
+            <button class="btn btn-danger" ng-click="deleteFundraiser(fundraiser.FUNDRAISER_ID)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+   
 
 </body>
 </html>
