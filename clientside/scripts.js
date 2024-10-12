@@ -97,7 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ date: new Date().toISOString(), amount, giver, fundraiser_id })
+        body: JSON.stringify({ "DATE": new Date().toISOString(), "AMOUNT":amount, "GICER":giver, "FUNDRAISER_ID": fundraiser_id})
+        
       })
         .then(response => response.json())
         .then(data => {
@@ -105,6 +106,8 @@ document.addEventListener('DOMContentLoaded', function() {
           window.location.href = `fundraiser.html?id=${fundraiser_id}`;
         })
         .catch(error => console.error('Error submitting donation:', error));
+        console.log({ "date": new Date().toISOString(), "amount":amount, "giver":giver, "fundraiser_id": fundraiser_id})
+
     });
   }
 
