@@ -9,7 +9,7 @@ angular.module('adminApp', [])
     $scope.loadFundraisers = function() {
       $http.get('/fundraisers')
         .then(function(response) {
-          $scope.fundraisers = response.data;
+          $scope.fundraisers = response.data; // 确保后端返回的数据格式是数组
         }, function(error) {
           console.error('Error fetching fundraisers:', error);
         });
@@ -19,8 +19,8 @@ angular.module('adminApp', [])
     $scope.addFundraiser = function() {
       $http.post('/fundraisers', $scope.newFundraiser)
         .then(function(response) {
-          $scope.fundraisers.push(response.data);
-          $scope.newFundraiser = {}; // Reset form
+          $scope.fundraisers.push(response.data); // 假设后端返回新创建的筹款活动对象
+          $scope.newFundraiser = {}; // 重置表单
         }, function(error) {
           console.error('Error adding fundraiser:', error);
         });
@@ -36,7 +36,7 @@ angular.module('adminApp', [])
     $scope.updateFundraiser = function() {
       $http.put('/fundraisers/' + $scope.currentFundraiser.FUNDRAISER_ID, $scope.currentFundraiser)
         .then(function(response) {
-          $scope.loadFundraisers(); // Refresh list
+          $scope.loadFundraisers(); // 刷新列表
           $scope.editing = false;
         }, function(error) {
           console.error('Error updating fundraiser:', error);
@@ -47,7 +47,7 @@ angular.module('adminApp', [])
     $scope.deleteFundraiser = function(id) {
       $http.delete('/fundraisers/' + id)
         .then(function(response) {
-          $scope.loadFundraisers(); // Refresh list
+          $scope.loadFundraisers(); // 刷新列表
         }, function(error) {
           console.error('Error deleting fundraiser:', error);
         });
