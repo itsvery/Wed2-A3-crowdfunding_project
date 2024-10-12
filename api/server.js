@@ -94,22 +94,42 @@ app.get('/search', (req, res) => {
     });
   });
   
-  // Get fundraising event details by ID(根据 ID 获取筹款活动的详细信息)
-app.get('/fundraiser/:id', (req, res) => {
+  // Get fundraiser details by ID, get fundraiser details and a list of their donations(根据 ID 获取筹款活动的详细信息，获取筹款活动详情及其捐款列表)
+  app.get('/fundraiser/:id', (req, res) => {
     const { id } = req.params;
-    const query = `
+    const fundraiserQuery = `
       SELECT f.*, c.NAME as CATEGORY_NAME
       FROM FUNDRAISER f
       JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
       WHERE f.FUNDRAISER_ID = ?
     `;
-    connection.query(query, [id], (err, results) => {
+    const donationQuery = `
+      SELECT * FROM DONATION
+      WHERE FUNDRAISER_ID = ?
+      ORDER BY DATE DESC
+    `;
+  
+    connection.query(fundraiserQuery, [id], (err, fundraiserResults) => {
       if (err) {
-        console.error('Query failed: ' + err.stack);
-        res.status(500).send('Server error');
+        console.error('Inquiry Failure: ' + err.stack);
+        res.status(500).send('server error');
         return;
       }
-      res.json(results[0]);
+      if (fundraiserResults.length === 0) {
+        res.status(404).send('No fundraisers found');
+        return;
+      }
+  
+      connection.query(donationQuery, [id], (err, donationResults) => {
+        if (err) {
+          console.error('Inquiry Failure: ' + err.stack);
+          res.status(500).send('server error');
+          return;
+        }
+  
+        const fundraiser = fundraiserResults[0];
+        fundraiser.donations = donationResults;
+        res.json(fundraiser);
+      });
     });
   });
-  
