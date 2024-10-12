@@ -167,3 +167,22 @@ app.post('/fundraisers', (req, res) => {
     res.status(201).send('Donation record added successfully');
   });
 });
+
+// Updating existing fundraising activities(更新现有的筹款活动)
+app.put('/fundraisers/:id', (req, res) => {
+  const { id } = req.params;
+  const { organizer, caption, target_funding, current_funding, city, active, category_id } = req.body;
+  const query = `
+    UPDATE FUNDRAISER
+    SET ORGANIZER = ?, CAPTION = ?, TARGET_FUNDING = ?, CURRENT_FUNDING = ?, CITY = ?, ACTIVE = ?, CATEGORY_ID = ?
+    WHERE FUNDRAISER_ID = ?
+  `;
+  connection.query(query, [organizer, caption, target_funding, current_funding, city, active, category_id, id], (err, results) => {
+    if (err) {
+      console.error('update failure: ' + err.stack);
+      res.status(500).send('server error');
+      return;
+    }
+    res.send('Fundraising Event Updates Successful');
+  });
+});
