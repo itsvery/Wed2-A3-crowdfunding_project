@@ -133,3 +133,20 @@ app.get('/search', (req, res) => {
       });
     });
   });
+
+  // Add a new contribution record(添加新的捐款记录)
+app.post('/donations', (req, res) => {
+  const { date, amount, giver, fundraiser_id } = req.body;
+  const query = `
+    INSERT INTO DONATION (DATE, AMOUNT, GIVER, FUNDRAISER_ID)
+    VALUES (?, ?, ?, ?)
+  `;
+  connection.query(query, [date, amount, giver, fundraiser_id], (err, results) => {
+    if (err) {
+      console.error('插入失败: ' + err.stack);
+      res.status(500).send('服务器错误');
+      return;
+    }
+    res.status(201).send('捐款记录添加成功');
+  });
+});
