@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html ng-app="adminApp">
+<html>
 <head>
   <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-  <script src="app.js"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body ng-controller="AdminController">
+<body>
 
   <div class="container">
     <h1>Admin Dashboard</h1>
 
     <!-- Fundraiser List -->
     <h2>Fundraisers</h2>
-    <table class="table">
+    <table id="fundraiserTable" class="table">
       <thead>
         <tr>
           <th>ID</th>
@@ -24,46 +21,40 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="fundraiser in fundraisers">
-          <td>{{fundraiser.FUNDRAISER_ID}}</td>
-          <td>{{fundraiser.CAPTION}}</td>
-          <td>{{fundraiser.ORGANIZER}}</td>
-          <td>
-            <button class="btn btn-warning" ng-click="editFundraiser(fundraiser)">Edit</button>
-            <button class="btn btn-danger" ng-click="deleteFundraiser(fundraiser.FUNDRAISER_ID)">Delete</button>
-          </td>
-        </tr>
+        <!-- Dynamic content will be inserted here -->
       </tbody>
     </table>
 
     <!-- Add Fundraiser Form -->
     <h2>Add New Fundraiser</h2>
-    <form ng-submit="addFundraiser()">
+    <form id="addFundraiserForm">
       <div class="form-group">
-        <input type="text" class="form-control" ng-model="newFundraiser.CAPTION" placeholder="Caption" required>
+        <input type="text" id="caption" placeholder="Caption" required>
       </div>
       <div class="form-group">
-        <input type="text" class="form-control" ng-model="newFundraiser.ORGANIZER" placeholder="Organizer" required>
+        <input type="text" id="organizer" placeholder="Organizer" required>
       </div>
       <!-- Add other necessary fields -->
-      <button type="submit" class="btn btn-primary">Save</button>
+      <button type="submit">Save</button>
     </form>
 
     <!-- Edit Fundraiser Form -->
-    <div ng-if="editing">
+    <div id="editFormContainer" style="display: none;">
       <h2>Edit Fundraiser</h2>
-      <form ng-submit="updateFundraiser()">
+      <form id="editFundraiserForm">
         <div class="form-group">
-          <input type="text" class="form-control" ng-model="currentFundraiser.CAPTION" placeholder="Caption" required>
+          <input type="text" id="editCaption" placeholder="Caption" required>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" ng-model="currentFundraiser.ORGANIZER" placeholder="Organizer" required>
+          <input type="text" id="editOrganizer" placeholder="Organizer" required>
         </div>
         <!-- Add other necessary fields -->
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit">Save</button>
       </form>
     </div>
   </div>
 
+  <script src="app.js"></script>
 </body>
 </html>
+
