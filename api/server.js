@@ -155,21 +155,21 @@ app.get('/donations', (req, res) => {
 });
 
   // Add a new contribution record(添加新的捐款记录)
-app.post('/donations', (req, res) => {
-  const { date, amount, giver, fundraiser_id } = req.body;
-  const query = `
-    INSERT INTO DONATION (DATE, AMOUNT, GIVER, FUNDRAISER_ID)
-    VALUES (?, ?, ?, ?)
-  `;
-  connection.query(query, [date, amount, giver, fundraiser_id], (err, results) => {
-    if (err) {
-      console.error('Insertion failed: ' + err.stack);
-      res.status(500).send('server error');
-      return;
-    }
-    res.status(201).send('Donation record added successfully');
+  app.post('/donations', (req, res) => {
+    const { date, amount, giver, fundraiser_id } = req.body;
+    const query = `
+      INSERT INTO DONATION (DATE, AMOUNT, GIVER, FUNDRAISER_ID)
+      VALUES (?, ?, ?, ?)
+    `;
+    connection.query(query, [date, amount, giver, fundraiser_id], (err, results) => {
+      if (err) {
+        console.error('插入失败: ' + err.stack);
+        res.status(500).json({ error: '服务器错误', details: err.message });
+        return;
+      }
+      res.status(201).json({ message: '捐款记录添加成功' });
+    });
   });
-});
 
 // Add a new fundraiser(添加新的筹款活动)
 app.post('/fundraisers', (req, res) => {

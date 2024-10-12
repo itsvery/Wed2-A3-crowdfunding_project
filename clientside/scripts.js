@@ -21,21 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
     loadSearchPage();
   }
 
-  fetch('http://localhost:3000/fundraisers')
-  .then(response => {
-    console.log('Response:', response);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log('Data:', data);
-    // 处理数据
-  })
-  .catch(error => console.error('Error fetching fundraisers:', error));
-
-
   function loadHomePage() {
     fetch('http://localhost:3000/fundraisers')
       .then(response => response.json())
@@ -44,11 +29,11 @@ document.addEventListener('DOMContentLoaded', function() {
         data.forEach(fundraiser => {
           const fundraiserDiv = document.createElement('div');
           fundraiserDiv.innerHTML = `
-            <h3>${fundraiser.caption}</h3>
-            <p>Organizer: ${fundraiser.organizer}</p>
-            <p>City: ${fundraiser.city}</p>
-            <p>Target Funding: ${fundraiser.target_funding}</p>
-            <p>Current Funding: ${fundraiser.current_funding}</p>
+            <h3>${fundraiser.CAPTION}</h3>
+            <p>Organizer: ${fundraiser.ORGANIZER}</p>
+            <p>City: ${fundraiser.CITY}</p>
+            <p>Target Funding: ${fundraiser.TARGET_FUNDING}</p>
+            <p>Current Funding: ${fundraiser.CURRENT_FUNDING}</p>
             <p>Category: ${fundraiser.CATEGORY_NAME}</p>
             <a href="fundraiser.html?id=${fundraiser.FUNDRAISER_ID}">View Details</a>
           `;
@@ -65,16 +50,16 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch(`http://localhost:3000/fundraiser/${fundraiserId}`)
       .then(response => response.json())
       .then(data => {
-        document.getElementById('caption').textContent = data.caption;
-        document.getElementById('organizer').textContent = data.organizer;
-        document.getElementById('city').textContent = data.city;
-        document.getElementById('target_funding').textContent = data.target_funding;
-        document.getElementById('current_funding').textContent = data.current_funding;
+        document.getElementById('caption').textContent = data.CAPTION;
+        document.getElementById('organizer').textContent = data.ORGANIZER;
+        document.getElementById('city').textContent = data.CITY;
+        document.getElementById('target_funding').textContent = data.TARGET_FUNDING;
+        document.getElementById('current_funding').textContent = data.CURRENT_FUNDING;
 
         const donationsUl = document.getElementById('donations');
         data.donations.forEach(donation => {
           const donationLi = document.createElement('li');
-          donationLi.textContent = `${donation.giver} donated ${donation.amount} on ${donation.date}`;
+          donationLi.textContent = `${donation.GIVER} donated ${donation.AMOUNT} on ${donation.DATE}`;
           donationsUl.appendChild(donationLi);
         });
 
@@ -90,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch(`http://localhost:3000/fundraiser/${fundraiserId}`)
       .then(response => response.json())
       .then(data => {
-        document.getElementById('fundraiser-caption').textContent = data.caption;
+        document.getElementById('fundraiser-caption').textContent = data.CAPTION;
         document.getElementById('fundraiser_id').value = data.FUNDRAISER_ID;
       })
       .catch(error => console.error('Error fetching fundraiser details:', error));
@@ -116,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
       })
         .then(response => response.json())
         .then(data => {
-          alert(`Thank you for your donation to ${data.caption}`);
+          alert(`Thank you for your donation to ${data.message}`);
           window.location.href = `fundraiser.html?id=${fundraiser_id}`;
         })
         .catch(error => console.error('Error submitting donation:', error));
@@ -148,11 +133,11 @@ document.addEventListener('DOMContentLoaded', function() {
             data.forEach(fundraiser => {
               const fundraiserDiv = document.createElement('div');
               fundraiserDiv.innerHTML = `
-                <h3>${fundraiser.caption}</h3>
-                <p>Organizer: ${fundraiser.organizer}</p>
-                <p>City: ${fundraiser.city}</p>
-                <p>Target Funding: ${fundraiser.target_funding}</p>
-                <p>Current Funding: ${fundraiser.current_funding}</p>
+                <h3>${fundraiser.CAPTION}</h3>
+                <p>Organizer: ${fundraiser.ORGANIZER}</p>
+                <p>City: ${fundraiser.CITY}</p>
+                <p>Target Funding: ${fundraiser.TARGET_FUNDING}</p>
+                <p>Current Funding: ${fundraiser.CURRENT_FUNDING}</p>
                 <p>Category: ${fundraiser.CATEGORY_NAME}</p>
                 <a href="fundraiser.html?id=${fundraiser.FUNDRAISER_ID}">View Details</a>
               `;
