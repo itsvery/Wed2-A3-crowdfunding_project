@@ -186,3 +186,38 @@ app.put('/fundraisers/:id', (req, res) => {
     res.send('Fundraising Event Updates Successful');
   });
 });
+
+// Delete existing fundraising activities(删除现有的筹款活动)
+app.delete('/fundraisers/:id', (req, res) => {
+  const { id } = req.params;
+  const checkDonationsQuery = `
+    SELECT COUNT(*) as donationCount
+    FROM DONATION
+    WHERE FUNDRAISER_ID = ?
+  `;
+  const deleteQuery = `
+    DELETE FROM FUNDRAISER
+    WHERE FUNDRAISER_ID = ?
+  `;
+
+  connection.query(checkDonationsQuery, [id], (err, results) => {
+    if (err) {
+      console.error('Inquiry Failure: ' + err.stack);
+      res.status(500).send('server error');
+      return;
+    }
+    if (results[0].donationCount > 0) {
+      res.status(400).send('Fundraising campaigns with existing donation records that cannot be deleted');
+      return;
+    }
+
+    connection.query(deleteQuery, [id], (err, results) => {
+      if (err) {
+        console.error('Failed to delete: ' + err.stack);
+        res.status(500).send('server error');
+        return;
+      }
+      res.send('Fundraiser Delete Successful');
+    });
+  });
+});
