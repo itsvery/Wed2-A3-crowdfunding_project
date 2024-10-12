@@ -2,23 +2,23 @@ var app = angular.module('crowdfundingApp', ['ngRoute']);
 
 app.config(function($routeProvider) {
   $routeProvider
-    .when('/', {
-      templateUrl: 'views/home.html',
+    .when('/home', {
+      templateUrl: 'home.html',
       controller: 'HomeController'
     })
     .when('/fundraiser/:id', {
-      templateUrl: 'views/fundraiser.html',
+      templateUrl: 'fundraiser.html',
       controller: 'FundraiserController'
     })
-    .when('/donation', {
-      templateUrl: 'views/donation.html',
+    .when('/donation/:fundraiser_id', {
+      templateUrl: 'donation.html',
       controller: 'DonationController'
     })
     .when('/search', {
-      templateUrl: 'views/search.html',
+      templateUrl: 'search.html',
       controller: 'SearchController'
     })
     .otherwise({
-      redirectTo: '/'
+      redirectTo: '/home'
     });
 });

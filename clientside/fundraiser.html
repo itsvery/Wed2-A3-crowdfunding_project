@@ -1,0 +1,14 @@
+<div>
+  <h1>{{fundraiser.CAPTION}}</h1>
+  <p>Organized by: <span>{{fundraiser.ORGANIZER}}</span></p>
+  <p>City: <span>{{fundraiser.CITY}}</span></p>
+  <p>Target Funding: <span>{{fundraiser.TARGET_FUNDING}}</span></p>
+  <p>Current Funding: <span>{{fundraiser.CURRENT_FUNDING}}</span></p>
+  <h2>Donations</h2>
+  <ul>
+    <li ng-repeat="donation in fundraiser.donations">
+      {{donation.GIVER}} donated {{donation.AMOUNT}} on {{donation.DATE}}
+    </li>
+  </ul>
+  <a href="#/donation/{{fundraiser.FUNDRAISER_ID}}">Donate</a>
+</div>

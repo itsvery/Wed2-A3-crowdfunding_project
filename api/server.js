@@ -242,3 +242,7 @@ app.delete('/fundraisers/:id', (req, res) => {
   });
 });
 
+// Serve the AngularJS application
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../clientside/index.html'));
+});
