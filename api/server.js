@@ -32,7 +32,7 @@ connection.connect((err) => {
 });
 
 // Provision of static documents(提供静态文件)
-app.use(express.static(path.join(__dirname, '../clientside/public')));
+app.use(express.static(path.join(__dirname, '../clientside')));
 
 // Start the server
 app.listen(port, () => {
@@ -141,6 +141,19 @@ app.get('/search', (req, res) => {
     });
   });
 
+  // 获取所有捐款记录
+app.get('/donations', (req, res) => {
+  const query = 'SELECT * FROM DONATION';
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('查询失败: ' + err.stack);
+      res.status(500).send('服务器错误');
+      return;
+    }
+    res.json(results);
+  });
+});
+
   // Add a new contribution record(添加新的捐款记录)
 app.post('/donations', (req, res) => {
   const { date, amount, giver, fundraiser_id } = req.body;
@@ -228,3 +241,4 @@ app.delete('/fundraisers/:id', (req, res) => {
     });
   });
 });
+
