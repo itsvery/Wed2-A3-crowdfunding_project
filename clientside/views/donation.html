@@ -1,0 +1,9 @@
+<h1>Donate to {{ fundraiser.caption }}</h1>
+<form ng-submit="submitDonation()">
+  <label for="giver">Your Name:</label>
+  <input type="text" id="giver" ng-model="donation.giver" required>
+  <label for="amount">Amount:</label>
+  <input type="number" id="amount" ng-model="donation.amount" required>
+  <input type="hidden" ng-model="donation.fundraiser_id" value="{{ fundraiser.FUNDRAISER_ID }}">
+  <button type="submit">Submit my donation</button>
+</form>
