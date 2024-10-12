@@ -2,10 +2,14 @@ const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const path = require('path');
+const cors = require('cors'); // 引入cors中间件
 
 
 const app = express();
 const port = 3000;
+
+// 使用cors中间件
+app.use(cors());
 
 // Parsing request bodies with the body-parser middleware
 app.use(bodyParser.json());
@@ -35,23 +39,26 @@ app.listen(port, () => {
   console.log(`The server is running on http://localhost:${port}`);
 });
 
-// Get all active fundraisers(获取所有活跃的筹款活动)
+// Get all active fundraisers获取所有活跃的筹款活动
 app.get('/fundraisers', (req, res) => {
-    const query = `
-      SELECT f.*, c.NAME as CATEGORY_NAME
-      FROM FUNDRAISER f
-      JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
-      WHERE f.ACTIVE = TRUE
-    `;
-    connection.query(query, (err, results) => {
-      if (err) {
-        console.error('Query failed: ' + err.stack);
-        res.status(500).send('Server error');
-        return;
-      }
-      res.json(results);
-    });
+  const query = `
+    SELECT f.*, c.NAME as CATEGORY_NAME
+    FROM FUNDRAISER f
+    JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
+    WHERE f.ACTIVE = TRUE
+  `;
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Query failed: ' + err.stack);
+      res.status(500).send('Server error');
+      return;
+    }
+    console.log('Returned data:', JSON.stringify(results)); // Add Log
+    res.json(results);
+  });
 });
+
+
 
 
 // Get all categories(获取所有类别)
