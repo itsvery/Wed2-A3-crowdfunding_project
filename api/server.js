@@ -143,10 +143,10 @@ app.post('/donations', (req, res) => {
   `;
   connection.query(query, [date, amount, giver, fundraiser_id], (err, results) => {
     if (err) {
-      console.error('插入失败: ' + err.stack);
-      res.status(500).send('服务器错误');
+      console.error('Insertion failed:' + err.stack);
+      res.status(500).send('server error');
       return;
     }
-    res.status(201).send('捐款记录添加成功');
+    res.status(201).send('Donation record added successfully');
   });
 });
