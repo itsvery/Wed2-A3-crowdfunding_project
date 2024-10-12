@@ -36,7 +36,34 @@
       </tbody>
     </table>
 
-   
+    <!-- Add Fundraiser Form -->
+    <h2>Add New Fundraiser</h2>
+    <form ng-submit="addFundraiser()">
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="newFundraiser.CAPTION" placeholder="Caption" required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="newFundraiser.ORGANIZER" placeholder="Organizer" required>
+      </div>
+      <!-- Add other necessary fields -->
+      <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+    <!-- Edit Fundraiser Form -->
+    <div ng-if="editing">
+      <h2>Edit Fundraiser</h2>
+      <form ng-submit="updateFundraiser()">
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="currentFundraiser.CAPTION" placeholder="Caption" required>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" ng-model="currentFundraiser.ORGANIZER" placeholder="Organizer" required>
+        </div>
+        <!-- Add other necessary fields -->
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
 
 </body>
 </html>
