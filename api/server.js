@@ -156,12 +156,12 @@ app.get('/donations', (req, res) => {
 
   // Add a new contribution record(添加新的捐款记录)
   app.post('/donations', (req, res) => {
-    const { date, amount, giver, fundraiser_id } = req.body;
+    const { DATE, AMOUNT, GIVER, FUNDRAISER_ID } = req.body;
     const query = `
       INSERT INTO DONATION (DATE, AMOUNT, GIVER, FUNDRAISER_ID)
       VALUES (?, ?, ?, ?)
     `;
-    connection.query(query, [date, amount, giver, fundraiser_id], (err, results) => {
+    connection.query(query, [DATE, AMOUNT, GIVER, FUNDRAISER_ID], (err, results) => {
       if (err) {
         console.error('插入失败: ' + err.stack);
         res.status(500).json({ error: '服务器错误', details: err.message });
@@ -170,6 +170,7 @@ app.get('/donations', (req, res) => {
       res.status(201).json({ message: '捐款记录添加成功' });
     });
   });
+  
 
 // Add a new fundraiser(添加新的筹款活动)
 app.post('/fundraisers', (req, res) => {
