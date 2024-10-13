@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
     const fundraiserTable = document.getElementById('fundraisers-list');
+    let fundraisersData = []; // Store fetched data here
 
     // Load all fundraisers
     function loadFundraisers() {
         fetch('http://localhost:3000/fundraisers')
             .then(response => response.json())
             .then(data => {
+                fundraisersData = data; // Save data for later use
                 fundraiserTable.innerHTML = '';
                 data.forEach(fundraiser => {
                     const div = document.createElement('div');
@@ -25,9 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Error fetching fundraisers:', error));
     }
+
     // Edit a fundraiser
     window.editFundraiser = function (id) {
-        const fundraiser = fundraisersData.find(f => f.FUNDRAISER_ID === id);
+        const fundraiser = fundraisersData.find(f => f.FUNDRAISER_ID === id); // Use fundraisersData
         if (fundraiser) {
             document.getElementById('fundraiser-id').value = fundraiser.FUNDRAISER_ID;
             document.getElementById('organizer-update').value = fundraiser.ORGANIZER;
@@ -47,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize by loading fundraisers
     loadFundraisers();
+
 
     // Add a new fundraiser
     window.validateForm1 = function () {
