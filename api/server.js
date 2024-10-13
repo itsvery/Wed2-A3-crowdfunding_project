@@ -179,7 +179,7 @@ app.post('/fundraisers', (req, res) => {
     INSERT INTO FUNDRAISER (ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
-  connection.query(query, [organizer, caption, target_funding, current_funding, city, active, category_id], (err, results) => {
+  connection.query(query, [ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID], (err, results) => {
     if (err) {
       console.error('Insertion failed: ' + err.stack);
       res.status(500).send('server error');
