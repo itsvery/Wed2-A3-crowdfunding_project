@@ -36,7 +36,7 @@ export class DonationComponent implements OnInit {
     }
 
     const donationData = {
-      DATE: new Date().toISOString(),
+      DATE: new Date().toISOString().split('T')[0], // Ensure DATE format is YYYY-MM-DD
       AMOUNT: this.amount,
       GIVER: this.giver,
       FUNDRAISER_ID: this.fundraiser.FUNDRAISER_ID
