@@ -8,7 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { FundraiserComponent } from './fundraiser/fundraiser.component';
 import { DonationComponent } from './donation/donation.component';
 import { SearchComponent } from './search/search.component';
-import { appRoutes } from './app.routes';
+import { appRoutes } from './app-routing.module';
 
 @NgModule({
   declarations: [

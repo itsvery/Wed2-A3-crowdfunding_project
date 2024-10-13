@@ -21,10 +21,10 @@ export class SearchComponent {
     if (this.city) query += `city=${this.city}&`;
     if (this.category) query += `category=${this.category}&`;
 
-    this.fundraiserService.searchFundraisers(query).subscribe(
-      data => this.searchResults = data,
-      error => console.error('Error searching fundraisers:', error)
-    );
+    this.fundraiserService.searchFundraisers(query).subscribe({
+      next: data => this.searchResults = data,
+      error: error => console.error('Error searching fundraisers:', error)
+    });
   }
 
   clearSearch(): void {

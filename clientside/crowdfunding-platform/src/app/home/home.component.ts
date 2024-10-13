@@ -13,9 +13,9 @@ export class HomeComponent implements OnInit {
   constructor(private fundraiserService: FundraiserService) { }
 
   ngOnInit(): void {
-    this.fundraiserService.getFundraisers().subscribe(
-      data => this.fundraisers = data,
-      error => console.error('Error fetching fundraisers:', error)
-    );
+    this.fundraiserService.getFundraisers().subscribe({
+      next: data => this.fundraisers = data,
+      error: error => console.error('Error fetching fundraisers:', error)
+    });
   }
 }
