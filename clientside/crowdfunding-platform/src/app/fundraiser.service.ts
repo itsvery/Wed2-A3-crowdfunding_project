@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FundraiserService {
 
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) { }
 
