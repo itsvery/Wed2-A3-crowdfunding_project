@@ -25,6 +25,28 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Error fetching fundraisers:', error));
     }
+    // Edit a fundraiser
+    window.editFundraiser = function (id) {
+        const fundraiser = fundraisersData.find(f => f.FUNDRAISER_ID === id);
+        if (fundraiser) {
+            document.getElementById('fundraiser-id').value = fundraiser.FUNDRAISER_ID;
+            document.getElementById('organizer-update').value = fundraiser.ORGANIZER;
+            document.getElementById('caption-update').value = fundraiser.CAPTION;
+            document.getElementById('target-update').value = fundraiser.TARGET_FUNDING;
+            document.getElementById('current-update').value = fundraiser.CURRENT_FUNDING;
+            document.getElementById('city-update').value = fundraiser.CITY;
+            document.getElementById('active-update').value = fundraiser.ACTIVE;
+            document.getElementById('category-update').value = fundraiser.CATEGORY_ID;
+            document.getElementById('editFormContainer').style.display = 'block';
+        } else {
+            alert("Fundraiser not found!");
+        }
+    }
+
+    // Other functions (validateForm1, validateForm2, deleteFundraiser) remain unchanged
+
+    // Initialize by loading fundraisers
+    loadFundraisers();
 
     // Add a new fundraiser
     window.validateForm1 = function () {
