@@ -1,0 +1,30 @@
+h1 {
+    color: #333;
+  }
+  
+  p {
+    color: #555;
+  }
+  
+  h2 {
+    color: #555;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  ul li {
+    margin-bottom: 10px;
+  }
+  
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
