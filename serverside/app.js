@@ -97,24 +97,69 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error("Error:", error));
     }
 
-   
+
 
     // Update a fundraiser
+    // window.validateForm2 = function () {
+    //     const FUNDRAISER_ID = document.getElementById('fundraiser-id').value.trim();
+    //     const ORGANIZER = document.getElementById('organizer-update').value.trim();
+    //     const CAPTION = document.getElementById('caption-update').value.trim();
+    //     const TARGET = document.getElementById('target-update').value;
+    //     const CURRENT = document.getElementById('current-update').value;
+    //     const CITY = document.getElementById('city-update').value.trim();
+    //     const ACTIVE = document.getElementById('active-update').value;
+    //     const CATEGORY_ID = document.getElementById('category-update').value;
+
+    //     if (!FUNDRAISER_ID || !ORGANIZER || !CAPTION || !TARGET || !CURRENT || !CITY || !ACTIVE || !CATEGORY_ID) {
+    //         alert("All fields are required!");
+    //         return;
+    //     }
+
+    //     const postData = {
+    //         'ORGANIZER': ORGANIZER,
+    //         'CAPTION': CAPTION,
+    //         'TARGET_FUNDING': TARGET,
+    //         'CURRENT_FUNDING': CURRENT,
+    //         'CITY': CITY,
+    //         'ACTIVE': ACTIVE,
+    //         'CATEGORY_ID': CATEGORY_ID
+    //     };
+
+    //     fetch(`http://localhost:3000/fundraisers/${FUNDRAISER_ID}`, {
+    //         method: 'PUT',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify(postData)
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             if (data.update === 'success') {
+    //                 alert("Fundraiser updated successfully!");
+    //                 document.getElementById('editFormContainer').style.display = 'none';
+    //                 loadFundraisers();
+    //             } else {
+    //                 alert("Error: " + data.message);
+    //             }
+    //         })
+    //         .catch(error => console.error("Error:", error));
+    // }
+
     window.validateForm2 = function () {
         const FUNDRAISER_ID = document.getElementById('fundraiser-id').value.trim();
         const ORGANIZER = document.getElementById('organizer-update').value.trim();
         const CAPTION = document.getElementById('caption-update').value.trim();
-        const TARGET = document.getElementById('target-update').value.trim();
-        const CURRENT = document.getElementById('current-update').value.trim();
+        const TARGET = document.getElementById('target-update').value;
+        const CURRENT = document.getElementById('current-update').value;
         const CITY = document.getElementById('city-update').value.trim();
         const ACTIVE = document.getElementById('active-update').value;
         const CATEGORY_ID = document.getElementById('category-update').value;
-
+    
         if (!FUNDRAISER_ID || !ORGANIZER || !CAPTION || !TARGET || !CURRENT || !CITY || !ACTIVE || !CATEGORY_ID) {
             alert("All fields are required!");
             return;
         }
-
+    
         const postData = {
             'ORGANIZER': ORGANIZER,
             'CAPTION': CAPTION,
@@ -124,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
             'ACTIVE': ACTIVE,
             'CATEGORY_ID': CATEGORY_ID
         };
-
+    
         fetch(`http://localhost:3000/fundraisers/${FUNDRAISER_ID}`, {
             method: 'PUT',
             headers: {
@@ -132,18 +177,30 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             body: JSON.stringify(postData)
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.update === 'success') {
-                    alert("Fundraiser updated successfully!");
-                    document.getElementById('editFormContainer').style.display = 'none';
-                    loadFundraisers();
-                } else {
-                    alert("Error: " + data.message);
+        .then(response => {
+            return response.text().then(text => {
+                try {
+                    return JSON.parse(text);
+                } catch (error) {
+                    throw new Error(text);
                 }
-            })
-            .catch(error => console.error("Error:", error));
+            });
+        })
+        .then(data => {
+            if (data.update === 'success') {
+                alert("Fundraiser updated successfully!");
+                document.getElementById('editFormContainer').style.display = 'none';
+                loadFundraisers();
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert(error.message);
+        });
     }
+    
 
     // Delete a fundraiser
     window.deleteFundraiser = function (id) {
