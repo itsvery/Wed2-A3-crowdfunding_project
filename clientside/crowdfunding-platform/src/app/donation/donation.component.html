@@ -1,1 +1,11 @@
-<p>donation works!</p>
+<div *ngIf="fundraiser">
+    <h1>Donate to <span>{{fundraiser.CAPTION}}</span></h1>
+    <form (ngSubmit)="submitDonation()">
+      <label for="giver">Your Name:</label>
+      <input type="text" id="giver" [(ngModel)]="giver" name="giver" required>
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" [(ngModel)]="amount" name="amount" required>
+      <button type="submit">Submit my donation</button>
+    </form>
+  </div>
+  

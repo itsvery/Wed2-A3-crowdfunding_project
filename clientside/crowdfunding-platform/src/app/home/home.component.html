@@ -1,1 +1,15 @@
-<p>home works!</p>
+<div>
+  <h1>Welcome to Our Crowdfunding Platform!</h1>
+  <p>Here are some inspiring stories...</p>
+  <p>Contact us at: contact.crowdfund.com</p>
+  <h2>Active Fundraisers</h2>
+  <div *ngFor="let fundraiser of fundraisers">
+    <h3>{{fundraiser.CAPTION}}</h3>
+    <p>Organizer: {{fundraiser.ORGANIZER}}</p>
+    <p>City: {{fundraiser.CITY}}</p>
+    <p>Target Funding: {{fundraiser.TARGET_FUNDING}}</p>
+    <p>Current Funding: {{fundraiser.CURRENT_FUNDING}}</p>
+    <p>Category: {{fundraiser.CATEGORY_NAME}}</p>
+    <a [routerLink]="['/fundraiser', fundraiser.FUNDRAISER_ID]">View Details</a>
+  </div>
+</div>

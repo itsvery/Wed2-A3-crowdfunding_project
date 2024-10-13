@@ -1,12 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { FundraiserService } from '../fundraiser.service';
 
 @Component({
   selector: 'app-fundraiser',
-  standalone: true,
-  imports: [],
   templateUrl: './fundraiser.component.html',
-  styleUrl: './fundraiser.component.css'
+  styleUrls: ['./fundraiser.component.css']
 })
-export class FundraiserComponent {
+export class FundraiserComponent implements OnInit {
 
+  fundraiser: any;
+
+  constructor(
+    private route: ActivatedRoute,
+    private fundraiserService: FundraiserService
+  ) { }
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.fundraiserService.getFundraiser(id).subscribe(
+        data => this.fundraiser = data,
+        error => console.error('Error fetching fundraiser details:', error)
+      );
+    }
+  }
 }

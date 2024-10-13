@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FundraiserService } from '../fundraiser.service';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
-  imports: [],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
+  fundraisers: any[] = [];
+
+  constructor(private fundraiserService: FundraiserService) { }
+
+  ngOnInit(): void {
+    this.fundraiserService.getFundraisers().subscribe(
+      data => this.fundraisers = data,
+      error => console.error('Error fetching fundraisers:', error)
+    );
+  }
 }
