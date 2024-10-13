@@ -1,60 +1,109 @@
 <!DOCTYPE html>
-<html ng-app="fundraiserApp">
+<html lang="en">
+
 <head>
-    <title>Fundraiser Management</title>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/services.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Charity Champions</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body ng-controller="FundraiserController as ctrl">
 
-    <h1>Fundraiser Management</h1>
+<body>
+    <div class="wrapper">
+        <!-- Left sidebar -->
+        <div class="sidebar"></div>
 
-    <!-- Display Fundraisers -->
-    <div>
-        <h2>Fundraisers List</h2>
-        <table border="1">
-            <tr>
-                <th>Organizer</th>
-                <th>Caption</th>
-                <th>City</th>
-                <th>Actions</th>
-            </tr>
-            <tr ng-repeat="fundraiser in ctrl.fundraisers">
-                <td>{{ fundraiser.ORGANIZER }}</td>
-                <td>{{ fundraiser.CAPTION }}</td>
-                <td>{{ fundraiser.CITY }}</td>
-                <td>
-                    <button ng-click="ctrl.editFundraiser(fundraiser)">Edit</button>
-                    <button ng-click="ctrl.deleteFundraiser(fundraiser.FUNDRAISER_ID)">Delete</button>
-                </td>
-            </tr>
-        </table>
+        <!-- Main content area -->
+        <div class="content">
+            <!-- Header section -->
+            <header>
+                <h1>Admin Dashboard</h1>
+            </header>
+
+            <!-- Fundraisers section -->
+            <section id="fundraisers">
+                <h2>All Fundraisers</h2>
+                <!-- Container for dynamically loaded fundraiser cards -->
+                <div id="fundraisers-list"></div>
+            </section>
+
+            <!-- Form to Add New Fundraiser -->
+            <section class="form-section">
+                <h2>Add Fundraiser</h2>
+                <form id="form1" onsubmit="return false;">
+                    <label>Organizer</label>
+                    <input type="text" id="organizer" placeholder="Enter organizer" required>
+                    <label>Caption</label>
+                    <input type="text" id="caption" placeholder="Enter caption" required>
+                    <label>Target funding</label>
+                    <input type="text" id="target" placeholder="Enter target funding" required>
+                    <label>Current funding</label>
+                    <input type="text" id="current" placeholder="Enter current funding" required>
+                    <label>City</label>
+                    <input type="text" id="city" placeholder="Enter city" required>
+                    Active:
+                    <select id="active" required>
+                        <option value="0">Inactive</option>
+                        <option value="1">Active</option>
+                    </select>
+                    Category:
+                    <select id="category" required>
+                        <option value="1">Technology</option>
+                        <option value="2">Art</option>
+                        <option value="3">Wildlife Conservation</option>
+                        <option value="4">Education</option>
+                        <option value="5">Healthcare</option>
+                        <option value="6">Environment</option>
+                        <option value="7">Community Development</option>
+                        <option value="8">Sports</option>
+                    </select>
+                    <button type="submit" onclick="validateForm1()">Save</button>
+                </form>
+            </section>
+
+            <!-- Form to Update Fundraiser -->
+            <div id="editFormContainer" style="display: none;" class="form-section">
+                <h2>Edit Fundraiser</h2>
+                <form id="editFundraiserForm" onsubmit="return false;">
+                    <label>ID</label>
+                    <input type="text" id="fundraiser-id" placeholder="Enter id" required>
+                    <label>Organizer</label>
+                    <input type="text" id="organizer-update" placeholder="Enter organizer" required>
+                    <label>Caption</label>
+                    <input type="text" id="caption-update" placeholder="Enter caption" required>
+                    <label>Target funding</label>
+                    <input type="text" id="target-update" placeholder="Enter target funding" required>
+                    <label>Current funding</label>
+                    <input type="text" id="current-update" placeholder="Enter current funding" required>
+                    <label>City</label>
+                    <input type="text" id="city-update" placeholder="Enter city" required>
+                    Active:
+                    <select id="active-update" required>
+                        <option value="0">Inactive</option>
+                        <option value="1">Active</option>
+                    </select>
+                    Category:
+                    <select id="category-update" required>
+                        <option value="1">Technology</option>
+                        <option value="2">Art</option>
+                        <option value="3">Wildlife Conservation</option>
+                        <option value="4">Education</option>
+                        <option value="5">Healthcare</option>
+                        <option value="6">Environment</option>
+                        <option value="7">Community Development</option>
+                        <option value="8">Sports</option>
+                    </select>
+                    <button type="submit" onclick="validateForm2()">Update</button>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Right sidebar -->
+        <div class="sidebar"></div>
     </div>
 
-    <!-- Add New Fundraiser -->
-    <div>
-        <h2>Add New Fundraiser</h2>
-        <form ng-submit="ctrl.addFundraiser()">
-            <input type="text" ng-model="ctrl.newFundraiser.ORGANIZER" placeholder="Organizer" required>
-            <input type="text" ng-model="ctrl.newFundraiser.CAPTION" placeholder="Caption" required>
-            <input type="text" ng-model="ctrl.newFundraiser.CITY" placeholder="City" required>
-            <button type="submit">Save</button>
-        </form>
-    </div>
-
-    <!-- Edit Fundraiser -->
-    <div ng-if="ctrl.editing">
-        <h2>Edit Fundraiser</h2>
-        <form ng-submit="ctrl.updateFundraiser()">
-            <input type="text" ng-model="ctrl.currentFundraiser.ORGANIZER" placeholder="Organizer" required>
-            <input type="text" ng-model="ctrl.currentFundraiser.CAPTION" placeholder="Caption" required>
-            <input type="text" ng-model="ctrl.currentFundraiser.CITY" placeholder="City" required>
-            <button type="submit">Update</button>
-        </form>
-    </div>
-
+    <script src="app.js"></script>
 </body>
+
 </html>
