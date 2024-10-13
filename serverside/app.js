@@ -97,19 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error("Error:", error));
     }
 
-    // Edit a fundraiser
-    window.editFundraiser = function (id) {
-        const fundraiser = data.find(f => f.FUNDRAISER_ID === id);
-        document.getElementById('fundraiser-id').value = fundraiser.FUNDRAISER_ID;
-        document.getElementById('organizer-update').value = fundraiser.ORGANIZER;
-        document.getElementById('caption-update').value = fundraiser.CAPTION;
-        document.getElementById('target-update').value = fundraiser.TARGET_FUNDING;
-        document.getElementById('current-update').value = fundraiser.CURRENT_FUNDING;
-        document.getElementById('city-update').value = fundraiser.CITY;
-        document.getElementById('active-update').value = fundraiser.ACTIVE;
-        document.getElementById('category-update').value = fundraiser.CATEGORY_ID;
-        document.getElementById('editFormContainer').style.display = 'block';
-    }
+   
 
     // Update a fundraiser
     window.validateForm2 = function () {
