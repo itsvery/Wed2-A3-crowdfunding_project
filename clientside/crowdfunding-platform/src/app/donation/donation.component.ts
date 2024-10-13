@@ -22,10 +22,10 @@ export class DonationComponent implements OnInit {
   ngOnInit(): void {
     const fundraiserId = this.route.snapshot.paramMap.get('fundraiser_id');
     if (fundraiserId) {
-      this.fundraiserService.getFundraiser(fundraiserId).subscribe(
-        data => this.fundraiser = data,
-        error => console.error('Error fetching fundraiser details:', error)
-      );
+      this.fundraiserService.getFundraiser(fundraiserId).subscribe({
+        next: data => this.fundraiser = data,
+        error: error => console.error('Error fetching fundraiser details:', error)
+      });
     }
   }
 
@@ -42,12 +42,12 @@ export class DonationComponent implements OnInit {
       FUNDRAISER_ID: this.fundraiser.FUNDRAISER_ID
     };
 
-    this.fundraiserService.submitDonation(donationData).subscribe(
-      response => {
+    this.fundraiserService.submitDonation(donationData).subscribe({
+      next: response => {
         alert(`Thank you for your donation to ${response.message}`);
         this.router.navigate(['/fundraiser', this.fundraiser.FUNDRAISER_ID]);
       },
-      error => console.error('Error submitting donation:', error)
-    );
+      error: error => console.error('Error submitting donation:', error)
+    });
   }
 }

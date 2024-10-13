@@ -19,10 +19,10 @@ export class FundraiserComponent implements OnInit {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.fundraiserService.getFundraiser(id).subscribe(
-        data => this.fundraiser = data,
-        error => console.error('Error fetching fundraiser details:', error)
-      );
+      this.fundraiserService.getFundraiser(id).subscribe({
+        next: data => this.fundraiser = data,
+        error: error => console.error('Error fetching fundraiser details:', error)
+      });
     }
   }
 }
