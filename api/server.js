@@ -174,7 +174,7 @@ app.get('/donations', (req, res) => {
 
 // Add a new fundraiser(添加新的筹款活动)
 app.post('/fundraisers', (req, res) => {
-  const { organizer, caption, target_funding, current_funding, city, active, category_id } = req.body;
+  const { ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID } = req.body;
   const query = `
     INSERT INTO FUNDRAISER (ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID)
     VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -192,13 +192,13 @@ app.post('/fundraisers', (req, res) => {
 // Updating existing fundraising activities(更新现有的筹款活动)
 app.put('/fundraisers/:id', (req, res) => {
   const { id } = req.params;
-  const { organizer, caption, target_funding, current_funding, city, active, category_id } = req.body;
+  const { ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID } = req.body;
   const query = `
     UPDATE FUNDRAISER
     SET ORGANIZER = ?, CAPTION = ?, TARGET_FUNDING = ?, CURRENT_FUNDING = ?, CITY = ?, ACTIVE = ?, CATEGORY_ID = ?
     WHERE FUNDRAISER_ID = ?
   `;
-  connection.query(query, [organizer, caption, target_funding, current_funding, city, active, category_id, id], (err, results) => {
+  connection.query(query, [ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID, id], (err, results) => {
     if (err) {
       console.error('update failure: ' + err.stack);
       res.status(500).send('server error');
