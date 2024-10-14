@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Load all fundraisers
     function loadFundraisers() {
-        fetch('http://localhost:3000/fundraisers')
+        fetch('https://24274834.it.scu.edu.au/DataServ/fundraisers')
             .then(response => response.json())
             .then(data => {
                 fundraisersData = data; // Save data for later use
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
             'CATEGORY_ID': CATEGORY_ID
         };
 
-        fetch('http://localhost:3000/fundraisers', {
+        fetch('https://24274834.it.scu.edu.au/DataServ/fundraisers', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
             'CATEGORY_ID': CATEGORY_ID
         };
     
-        fetch(`http://localhost:3000/fundraisers/${FUNDRAISER_ID}`, {
+        fetch(`https://24274834.it.scu.edu.au/DataServ/fundraisers/${FUNDRAISER_ID}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Delete a fundraiser
     window.deleteFundraiser = function (id) {
-        fetch(`http://localhost:3000/fundraisers/${id}`, {
+        fetch(`https://24274834.it.scu.edu.au/DataServ/fundraisers/${id}`, {
             method: 'DELETE'
         })
             .then(response => response.json())

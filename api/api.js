@@ -23,8 +23,8 @@ connection.connect((err) => {
 router.get('/fundraisers', (req, res) => {
   const query = `
     SELECT f.*, c.NAME as CATEGORY_NAME
-    FROM FUNDRAISER f
-    JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
+    FROM fundraiser f
+    JOIN category c ON f.CATEGORY_ID = c.CATEGORY_ID
     WHERE f.ACTIVE = TRUE
   `;
   connection.query(query, (err, results) => {
@@ -40,7 +40,7 @@ router.get('/fundraisers', (req, res) => {
 
 // Get all categories
 router.get('/categories', (req, res) => {
-  const query = 'SELECT * FROM CATEGORY';
+  const query = 'SELECT * FROM category';
   connection.query(query, (err, results) => {
     if (err) {
       console.error('Query failed: ' + err.stack);
@@ -56,8 +56,8 @@ router.get('/search', (req, res) => {
   const { organizer, city, category } = req.query;
   let query = `
     SELECT f.*, c.NAME as CATEGORY_NAME
-    FROM FUNDRAISER f
-    JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
+    FROM fundraiser f
+    JOIN category c ON f.CATEGORY_ID = c.CATEGORY_ID
     WHERE f.ACTIVE = TRUE
   `;
   const conditions = [];
@@ -81,12 +81,12 @@ router.get('/fundraiser/:id', (req, res) => {
   const { id } = req.params;
   const fundraiserQuery = `
     SELECT f.*, c.NAME as CATEGORY_NAME
-    FROM FUNDRAISER f
-    JOIN CATEGORY c ON f.CATEGORY_ID = c.CATEGORY_ID
+    FROM fundraiser f
+    JOIN category c ON f.CATEGORY_ID = c.CATEGORY_ID
     WHERE f.FUNDRAISER_ID = ?
   `;
   const donationQuery = `
-    SELECT * FROM DONATION
+    SELECT * FROM donation
     WHERE FUNDRAISER_ID = ?
     ORDER BY DATE DESC
   `;
@@ -118,7 +118,7 @@ router.get('/fundraiser/:id', (req, res) => {
 
 // Get all donations
 router.get('/donations', (req, res) => {
-  const query = 'SELECT * FROM DONATION';
+  const query = 'SELECT * FROM donation';
   connection.query(query, (err, results) => {
     if (err) {
       console.error('查询失败: ' + err.stack);
@@ -133,7 +133,7 @@ router.get('/donations', (req, res) => {
 router.post('/donations', (req, res) => {
   const { DATE, AMOUNT, GIVER, FUNDRAISER_ID } = req.body;
   const query = `
-    INSERT INTO DONATION (DATE, AMOUNT, GIVER, FUNDRAISER_ID)
+    INSERT INTO donation (DATE, AMOUNT, GIVER, FUNDRAISER_ID)
     VALUES (?, ?, ?, ?)
   `;
   connection.query(query, [DATE, AMOUNT, GIVER, FUNDRAISER_ID], (err, results) => {
@@ -150,7 +150,7 @@ router.post('/donations', (req, res) => {
 router.post('/fundraisers', (req, res) => {
   const { ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID } = req.body;
   const query = `
-    INSERT INTO FUNDRAISER (ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID)
+    INSERT INTO fundraiser (ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID)
     VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
   connection.query(query, [ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID], (err, results) => {
@@ -168,7 +168,7 @@ router.put('/fundraisers/:id', (req, res) => {
   const { id } = req.params;
   const { ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, CATEGORY_ID } = req.body;
   const query = `
-    UPDATE FUNDRAISER
+    UPDATE fundraiser
     SET ORGANIZER = ?, CAPTION = ?, TARGET_FUNDING = ?, CURRENT_FUNDING = ?, CITY = ?, ACTIVE = ?, CATEGORY_ID = ?
     WHERE FUNDRAISER_ID = ?
   `;
@@ -191,7 +191,7 @@ router.delete('/fundraisers/:id', (req, res) => {
     WHERE FUNDRAISER_ID = ?
   `;
   const deleteQuery = `
-    DELETE FROM FUNDRAISER
+    DELETE FROM fundraiser
     WHERE FUNDRAISER_ID = ?
   `;
 

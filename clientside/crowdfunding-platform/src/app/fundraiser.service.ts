@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FundraiserService {
 
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'http://24274834.it.scu.edu.au/DataServ';
 
   constructor(private http: HttpClient) { }
 
